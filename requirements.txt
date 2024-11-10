@@ -1,2 +1,3 @@
 pycryptodomex
 colorama
+pillow
