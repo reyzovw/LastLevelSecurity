@@ -1,11 +1,10 @@
-import os
-from time import sleep
-
 from features.encryption.methods import generate_static_code
 from features.utils.console import draw_string
 from features.screen.menu import render_gui
 from features.utils.file import *
 from init import *
+
+os.system("cls")
 
 while True:
     draw_string(f"Version: {VERSION} {RELEASE}", message_type="information")
@@ -14,7 +13,7 @@ while True:
     print("--------------------------------------")
 
     render_gui()
-    action_number = int(input("Action number: "))
+    action_number = int(input("\n[ • ] Action number: "))
 
     match action_number:
         case 1:

@@ -7,12 +7,12 @@ def draw_string(string: str,
 
     match message_type:
         case "default":
-            print(f"{Fore.LIGHTWHITE_EX}[ ⦿ ] {string}")
+            print(f"{Fore.LIGHTWHITE_EX}[ • ] {string}")
         case "information":
-            print(f"{Fore.LIGHTWHITE_EX}[ ⦿ ]{Fore.RESET} {string}")
+            print(f"{Fore.WHITE}[ • ]{Fore.RESET} {string}")
         case "warning":
-            print(f"{Fore.YELLOW}[ ⦿ ]{Fore.RESET} {string}")
+            print(f"{Fore.YELLOW}[ • ]{Fore.RESET} {string}")
         case "error":
-            print(f"{Fore.RED}[ ⦿ ]{Fore.RESET} {string}")
+            print(f"{Fore.RED}[ • ]{Fore.RESET} {string}")
         case "success":
             print(f"{Fore.GREEN}[ 🅥 ]{Fore.RESET} {string}")
