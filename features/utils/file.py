@@ -3,7 +3,6 @@ from base64 import b64encode, b64decode
 from typing import Literal
 from shutil import rmtree
 from PIL import Image
-import magic
 import json
 import os
 
@@ -99,7 +98,7 @@ def run_encryption(directory_path: str, block_name: str, master_password: str):
 
     encryption = AESCipher(master_password)
 
-    with open(f"{block_name}.cbc", 'w', encoding='utf-8') as json_file:
+    with open(f"{block_name}.block", 'w', encoding='utf-8') as json_file:
         encrypted_text = encryption.encrypt(json.dumps(output_data))
 
         json_file.write(encrypted_text.decode())

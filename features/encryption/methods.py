@@ -1,33 +1,39 @@
-import base64
 import hashlib
-from Cryptodome import Random
+import base64
 from Cryptodome.Cipher import AES
+from Cryptodome.Util.Padding import pad, unpad
+from Cryptodome.Random import get_random_bytes
+import hmac
 
 
 class AESCipher(object):
-    def __init__(self, key):  # Исправлено на __init__
+    def __init__(self, key):  # Изменено на __init__
         self.bs = AES.block_size
         self.key = hashlib.sha256(key.encode()).digest()
 
     def encrypt(self, raw):
-        raw = self._pad(raw)
-        iv = Random.new().read(AES.block_size)
+        raw = pad(raw.encode(), self.bs)  # Используем pad из Crypto.Util.Padding
+        iv = get_random_bytes(self.bs)  # Более безопасный способ генерации IV
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        encrypted = iv + cipher.encrypt(raw.encode())
-        return base64.b64encode(encrypted)
+        encrypted = cipher.encrypt(raw)
+
+        # Создаем HMAC для проверки целостности
+        hmac_tag = hmac.new(self.key, iv + encrypted, hashlib.sha256).digest()
+
+        return base64.b64encode(iv + hmac_tag + encrypted)
 
     def decrypt(self, enc):
         enc = base64.b64decode(enc)
-        iv = enc[:AES.block_size]
+        iv = enc[:self.bs]
+        hmac_tag = enc[self.bs:self.bs + 32]  # Длина HMAC для SHA-256 - 32 байта
+        encrypted = enc[self.bs + 32:]
+
+        # Проверяем HMAC
+        if hmac.new(self.key, iv + encrypted, hashlib.sha256).digest() != hmac_tag:
+            raise ValueError("Invalid HMAC! Data may have been tampered with.")
+
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
-
-    def _pad(self, s):
-        return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
-
-    @staticmethod
-    def _unpad(s):
-        return s[:-ord(s[len(s) - 1:])]
+        return unpad(cipher.decrypt(encrypted), self.bs).decode('utf-8')
 
 
 def generate_static_code(input_text):
