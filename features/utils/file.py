@@ -86,7 +86,7 @@ def scan_directory(directory: str) -> list[str, dict]:
     return blocks
 
 
-def run_encryption(directory_path: str, block_name: str, master_password: str):
+def run_encryption(directory_path: str, block_name: str, master_password: str, hmac: bool, iv: bool):
     block_data = scan_directory(directory_path)
 
     output_data = {
@@ -99,7 +99,7 @@ def run_encryption(directory_path: str, block_name: str, master_password: str):
     encryption = AESCipher(master_password)
 
     with open(f"{block_name}.block", 'w', encoding='utf-8') as json_file:
-        encrypted_text = encryption.encrypt(json.dumps(output_data))
+        encrypted_text = encryption.encrypt(json.dumps(output_data), use_iv=iv, use_hmac=hmac)
 
         json_file.write(encrypted_text.decode())
 
@@ -109,14 +109,14 @@ def run_encryption(directory_path: str, block_name: str, master_password: str):
         pass
 
 
-def run_decryption(block_directory: str, master_password: str):
+def run_decryption(block_directory: str, master_password: str, hmac: bool, iv: bool):
     block_directory = block_directory[:-1]
     encryption = AESCipher(master_password)
 
     with open(fr"{block_directory}", "r") as file:
         data = file.read()
 
-        decryption_result = json.loads(encryption.decrypt(data))
+        decryption_result = json.loads(encryption.decrypt(data, use_iv=iv, use_hmac=hmac))
         insecure_path = dict(decryption_result)['block']['insecure_path']
 
         if not os.path.exists(insecure_path):

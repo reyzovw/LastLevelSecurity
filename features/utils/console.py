@@ -15,4 +15,4 @@ def draw_string(string: str,
         case "error":
             print(f"{Fore.RED}[ • ]{Fore.RESET} {string}")
         case "success":
-            print(f"{Fore.GREEN}[ 🅥 ]{Fore.RESET} {string}")
+            print(f"{Fore.GREEN}[ • ]{Fore.RESET} {string}")
