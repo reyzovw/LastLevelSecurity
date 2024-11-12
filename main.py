@@ -2,8 +2,8 @@ from features.encryption.methods import generate_static_code
 from features.utils.console import draw_string
 from features.screen.menu import render_gui, draw_art
 from features.utils.file import *
+from time import sleep, time
 from colorama import Fore
-from time import sleep
 from init import *
 
 
@@ -29,8 +29,12 @@ def open_settings(user_config_data: dict):
     iv_data = f" {Fore.LIGHTYELLOW_EX}({user_config_data['use_iv'][2]}){Fore.RESET}"
     hmac_data = f" {Fore.LIGHTYELLOW_EX}({user_config_data['use_hmac'][2]}){Fore.RESET}"
 
+    compress_status = f"{Fore.LIGHTGREEN_EX}[YES]{Fore.RESET}" if user_config_data['compress_blocks'][0] else f"{Fore.RED}[NO]{Fore.RESET}"
+    compress_data = f" {Fore.LIGHTYELLOW_EX}({user_config_data['compress_blocks'][2]}){Fore.RESET}"
+
     draw_string(f"1: Use initialization vector: {iv_status + iv_data}")
     draw_string(f"2: Use Hash-based Message Authentication Code: {hmac_status + hmac_data}")
+    draw_string(f"3: Compress blocks: {compress_status + compress_data}")
 
     edit_id = int(input("\nAction number: "))
 
@@ -45,6 +49,11 @@ def open_settings(user_config_data: dict):
                 json_parser.edit_data("use_hmac", [False, True, "Increase the file size, 'Improved security'"])
             else:
                 json_parser.edit_data("use_hmac", [True, True, "Increase the file size, 'Improved security'"])
+        case 3:
+            if user_config_data['compress_blocks'][0]:
+                json_parser.edit_data("compress_blocks", [False, True, "Reducing block size"])
+            else:
+                json_parser.edit_data("compress_blocks", [True, True, "Reducing block size"])
 
     draw_art()
     new_user_data = json_parser.get_user_config_data()
@@ -74,6 +83,7 @@ def main():
                             block_name = input("Block name: ")
                             master_password = generate_static_code(input("Master password: "))
 
+                            print()
                             draw_string("Data encryption has started, please wait...")
 
                             run_encryption(directory + "/", block_name, master_password,
@@ -94,6 +104,9 @@ def main():
 
                             directory = input("Block directory: ")
                             master_password = generate_static_code(input("Master password: "))
+
+                            print()
+                            draw_string("Data decryption has started, please wait...")
 
                             run_decryption(directory + "/", master_password, hmac=user_config_data['use_hmac'][0], iv=user_config_data['use_iv'][0])
 

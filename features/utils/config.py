@@ -22,7 +22,7 @@ class JsonConfig:
         self.__scheme = {
             "use_iv": [True, False, "Will be no randomization, 'Strong impact'"],
             "use_hmac": [True, False, "Increase the file size, 'Improved security'"],
-            "vector_mirrors": [False, True, "Coming soon..."]
+            "compress_blocks": [False, True, "Reducing block size"]
         }
 
         if not os.path.exists(self.__filename):
