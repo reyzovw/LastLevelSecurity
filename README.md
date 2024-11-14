@@ -11,7 +11,7 @@
     ```
 2. Скопируйте репозиторий:
     ```shell
-    git clone https://github.com/reyzovw/cryptofeller
+    git clone https://github.com/reyzovw/LastLevelSecurity
     ```
 3. Установите библиотеки:
     ```shell
