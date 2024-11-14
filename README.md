@@ -1,5 +1,8 @@
 # LLS
 
+![image](https://github.com/user-attachments/assets/575fc72d-3ebb-470f-b2f4-c280ecd47443)
+
+
 ## Установка
 Для работы вы должны установить **[Python версии 3.12 или версией больше](https://www.python.org/downloads/)**
 
