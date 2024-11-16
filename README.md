@@ -1,8 +1,7 @@
-# FBI Center
-## _Безопасность последнего уровня_
+# LLS
 
-## Назначение
-Проект сделан для безопасного хранения важных для пользователя данных.
+![image](https://github.com/user-attachments/assets/575fc72d-3ebb-470f-b2f4-c280ecd47443)
+
 
 ## Установка
 Для работы вы должны установить **[Python версии 3.12 или версией больше](https://www.python.org/downloads/)**
@@ -15,7 +14,7 @@
     ```
 2. Скопируйте репозиторий:
     ```shell
-    git clone https://github.com/reyzovw/cryptofeller
+    git clone https://github.com/reyzovw/LastLevelSecurity
     ```
 3. Установите библиотеки:
     ```shell
