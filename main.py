@@ -1,5 +1,5 @@
 from features.encryption.methods import generate_static_code
-from features.utils.console import draw_string
+from features.utils.console import draw_string, cls
 from features.screen.menu import render_gui, draw_art
 from features.utils.file import *
 from time import sleep, time
@@ -19,7 +19,7 @@ def draw_main_menu():
 
 
 def open_settings(user_config_data: dict):
-    os.system("cls")
+    cls()
     draw_art()
     draw_string("Press Ctrl + C to go back\n")
 
@@ -62,7 +62,7 @@ def open_settings(user_config_data: dict):
 
 def main():
     os.system(f"title LLS / build #{VERSION} {RELEASE}")
-    os.system("cls")
+    cls()
 
     while True:
         user_config_data = json_parser.get_user_config_data()
@@ -74,7 +74,7 @@ def main():
                 case 1:
                     try:
                         try:
-                            os.system("cls")
+                            cls()
                             draw_art()
 
                             draw_string("Press Ctrl + C to go back\n")
@@ -91,14 +91,14 @@ def main():
 
                             draw_string("The block was successfully encrypted", message_type="success")
                         except KeyboardInterrupt:
-                            os.system("cls")
+                            cls()
                             continue
                     except Exception as e:
                         draw_string(f"An error occurred while encrypting the block: {e}", message_type="error")
                 case 2:
                     try:
                         try:
-                            os.system("cls")
+                            cls()
                             draw_art()
                             draw_string("Press Ctrl + C to go back\n")
 
@@ -112,7 +112,7 @@ def main():
 
                             draw_string("The block was successfully decrypted", message_type="success")
                         except KeyboardInterrupt:
-                            os.system("cls")
+                            cls()
                             continue
                     except Exception as e:
                         draw_string(f"An error occurred while decrypting the block: {e}", message_type="error")
@@ -121,7 +121,7 @@ def main():
                         try:
                             open_settings(user_config_data)
                         except KeyboardInterrupt:
-                            os.system("cls")
+                            cls()
                             continue
                     except Exception as e:
                         e.with_traceback()
@@ -130,16 +130,16 @@ def main():
                     raise KeyboardInterrupt
 
             sleep(3)
-            os.system('cls')
+            cls()
         except ValueError:
             draw_string("Такой опции не существует", message_type="error")
             sleep(2)
-            os.system("cls")
+            cls()
         except KeyboardInterrupt:
             print()
             draw_string("Shutting down", message_type="warning")
             sleep(1.5)
-            os.system("cls")
+            cls()
             exit(0)
 
 
