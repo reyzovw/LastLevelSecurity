@@ -1,6 +1,6 @@
 # LLS
 
-![image](https://github.com/user-attachments/assets/575fc72d-3ebb-470f-b2f4-c280ecd47443)
+Latest release: https://github.com/reyzovw/LastLevelSecurity/releases/tag/alpha130
 
 
 ## Установка
