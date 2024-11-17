@@ -29,4 +29,5 @@ def render_gui():
     draw_string("1: Encrypt a block of data")
     draw_string("2: Unmount encrypted data block")
     draw_string("3: LLS Settings")
-    draw_string("4: Shutdown")
+    draw_string("4: Password Manager")
+    draw_string("5: Shutdown")
