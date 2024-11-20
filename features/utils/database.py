@@ -5,10 +5,10 @@ import os
 
 class Core:
     def __init__(self, db_name_in_assets: str):
-        if not os.path.exists("./.storage"):
-            os.mkdir("./.storage")
+        if not os.path.exists("./.db"):
+            os.mkdir("./.db")
 
-        self.__connection = connect(f"./.storage/{db_name_in_assets}.db", check_same_thread=False)
+        self.__connection = connect(f"./.db/{db_name_in_assets}.db", check_same_thread=False)
         self.__cursor = self.__connection.cursor()
 
     def execute_query(self, *args) -> list[Any] | None:

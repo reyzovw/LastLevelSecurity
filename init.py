@@ -1,4 +1,4 @@
-from features.storage.passwords import PasswordsDatabase
+from features.db.passwords import PasswordsDatabase
 from features.utils.models import PasswordModel
 from features.utils.config import JsonConfig
 from features.utils.config import Config
