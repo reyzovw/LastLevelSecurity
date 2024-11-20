@@ -4,3 +4,4 @@ __pycache__
 test.py
 user_config.json
 /.storage
+/.db
