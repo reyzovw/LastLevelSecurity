@@ -1,6 +1,7 @@
 from features.encryption.methods import generate_static_code
 from features.utils.console import draw_string, cls
 from features.screen.menu import render_gui, draw_art
+from features.utils.testing import testing_systems
 from features.utils.file import *
 from colorama import Fore
 from time import sleep
@@ -275,4 +276,9 @@ def main():
 
 
 if __name__ == '__main__':
+    cls()
+    draw_art()
+    testing_systems()
+    sleep(5)
+    cls()
     main()
