@@ -1,5 +1,4 @@
-from features.utils.file import run_decryption, run_encryption
-from features.utils.console import draw_string, cls
+from features.utils.console import draw_string
 from features.encryption.methods import *
 
 from time import sleep
@@ -24,13 +23,11 @@ def testing_systems():
         decrypted_raw = aes.decrypt(encrypted_raw, use_iv=False, use_hmac=False)
 
         if decrypted_raw == raw:
-            sleep(1)
+            sleep(0.5)
             draw_string("Testing result: Everything is fine", message_type="success")
         else:
             draw_string("Test failed", message_type="error")
             exit(-1)
-
-        sleep(4)
 
         print("\n--------------------------------------\n")
 
@@ -41,7 +38,7 @@ def testing_systems():
         decrypted_raw = aes.decrypt(encrypted_raw)
 
         if decrypted_raw == raw:
-            sleep(1)
+            sleep(0.5)
             draw_string("Testing result: Everything is fine", message_type="success")
         else:
             draw_string("Test failed", message_type="error")

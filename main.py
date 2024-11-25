@@ -1,11 +1,45 @@
 from features.encryption.methods import generate_static_code
 from features.utils.console import draw_string, cls
+from features.encryption.bruteforce import Bruteforce
 from features.screen.menu import render_gui, draw_art
 from features.utils.testing import testing_systems
 from features.utils.file import *
 from colorama import Fore
 from time import sleep
 from init import *
+
+
+def draw_bruteforce_menu():
+    cls()
+    draw_art()
+    draw_string("Press Ctrl + C to go back\n")
+
+    draw_string("1: SHA-256", message_type='information')
+    draw_string("2: MD-5", message_type='information')
+    draw_string("3: SHA-224", message_type='information')
+    draw_string("4: SHA-512", message_type='information')
+    draw_string("5: SHA-1", message_type='information')
+
+    hash_type = int(input("\n[ • ] Hash type: "))
+    target_hash = str(input("[ • ] Hash value: "))
+
+    bruteforce = Bruteforce(hash_type, target_hash)
+
+    result = bruteforce.run()
+
+    cls()
+    draw_art()
+    draw_string("Press Ctrl + C to stop bruteforce\n")
+
+    if result['found']:
+        draw_string(f"Decrypted value: {result['word']}", message_type='success')
+        draw_string(f"Original hash: {result['hash']}", message_type='success')
+    else:
+        draw_string("Not found hash value :(", message_type='error')
+
+    print()
+    draw_string("Press Enter to go back")
+    input()
 
 
 def draw_main_menu():
@@ -259,6 +293,15 @@ def main():
                     except Exception as e:
                         draw_string(f"An error occurred while opening password manager: {e}", message_type="error")
                 case 5:
+                    try:
+                        try:
+                            draw_bruteforce_menu()
+                        except KeyboardInterrupt:
+                            cls()
+                            continue
+                    except Exception as e:
+                        draw_string(f"An error occurred while start bruteforce hash: {e}", message_type="error")
+                case 6:
                     raise KeyboardInterrupt
 
             sleep(3)
@@ -279,6 +322,6 @@ if __name__ == '__main__':
     cls()
     draw_art()
     testing_systems()
-    sleep(5)
+    sleep(1.5)
     cls()
     main()

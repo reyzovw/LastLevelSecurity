@@ -5,3 +5,4 @@ test.py
 user_config.json
 /.storage
 /.db
+data.txt
