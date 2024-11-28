@@ -18,7 +18,7 @@ class Config:
 
 class JsonConfig:
     def __init__(self):
-        self.__filename = "user_config.json"
+        self.__filename = ".db/user_config.json"
         self.__scheme = {
             "use_iv": [True, False, "Will be no randomization, 'Strong impact'"],
             "use_hmac": [True, False, "Increase the file size, 'Improved security'"],
