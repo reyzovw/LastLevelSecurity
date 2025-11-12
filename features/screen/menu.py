@@ -1,34 +1,42 @@
-import os
+from rich.panel import Panel
+from rich.table import Table
+from rich.align import Align
+from rich import box
 
-import colorama
+def render_gui(console):
+    menu_table = Table(
+        show_header=True,
+        header_style="bold white",
+        box=box.ROUNDED,
+        border_style="bright_blue",
+        title="[red]MAIN MENU[/red]",
+        title_style="bold red"
+    )
 
-from features.utils.console import draw_string
-from colorama import Fore
+    menu_table.add_column("#", style="red", width=6, justify="center")
+    menu_table.add_column("Action", style="white", width=30)
+    menu_table.add_column("Description", style="bright")
 
-Y = Fore.LIGHTBLACK_EX
-R = Fore.LIGHTBLACK_EX
-RS = Fore.RESET
-W = Fore.LIGHTWHITE_EX
+    menu_items = [
+        ("1", "Encrypt Data Block", "Secure encryption of files and directories"),
+        ("2", "Decrypt Data Block", "Restore encrypted data with master password"),
+        ("3", "LLS Settings", "Configure system preferences and security"),
+        ("4", "Password Manager", "Manage stored passwords securely"),
+        ("5", "Hash Bruteforce", "Advanced hash cracking tools"),
+        ("6", "Shutdown", "Exit the application safely")
+    ]
 
-ART = f"""
-    {R}.------. .------. {Y}.------.
-    {R}|{W}L{R}.--. | |{W}L{R}.--. | {Y}|{W}S{Y}.--. |
-    {R}| :{W}/\\{R}: |{R} | :{W}/\\{R}: | {Y}| :{W}/\\{Y}: |
-    {R}| {W}(__){R} | | {W}(__){R} | {Y}| :{W}\/{Y}: |
-    {R}| '--'{W}L{R}| | '--'{W}L{R}| {Y}| '--'{W}S{Y}|
-    {R}`------' `------' {Y}`------'
-{RS}"""
+    for num, action, desc in menu_items:
+        menu_table.add_row(num, f"[bold]{action}[/bold]", desc)
 
+    console.print()
+    console.print(menu_table)
+    console.print()
 
-def draw_art():
-    print(ART)
+    instruction_panel = Panel(
+        Align.center("[bold white]Select an option (1-6) to continue...[/bold white]"),
+        style="bright_black",
+        box=box.SQUARE
+    )
+    console.print(instruction_panel)
 
-
-def render_gui():
-    draw_string("Main menu, select action: \n")
-    draw_string("1: Encrypt a block of data")
-    draw_string("2: Unmount encrypted data block")
-    draw_string("3: LLS Settings")
-    draw_string("4: Password Manager")
-    draw_string("5: Hash bruteforce")
-    draw_string("6: Shutdown")
